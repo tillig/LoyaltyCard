@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LoyaltyCard</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+	body {
+		padding-top: 50px;
+	}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">LoyaltyCard</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#aboutDialog">About</a></li>
+					<li><a href="/">Back to Apps</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>LoyaltyCard <small>Generate a combined loyalty/club card</small></h1>
+		</div>
+		<p><strong>Ready to save some wallet space?</strong></p>
+		<p><strong>Use the form below to enter up to eight (8) barcodes for your loyalty cards.</strong> As you save the data, you can preview the output to double-check that the barcode type and format is as expected. It's important to compare this to the real barcode or it won't work when it's scanned later.</p>
+		<p><strong>When finished...</strong><p>
+		<ul>
+		<li><strong>Use the "download" button to get the rendered combined card as a PDF for printing.</strong> You'll have a single card with up to four barcodes on each side, suitable for lamination.</li>
+		<li><strong>"Save" your data by bookmarking the page.</strong> When you return, you can re-print your card or edit/update.</li>
+		</ul>
+
+		<div class="form-container">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary" id="downloadButton">Download Card</button>
+		</div>
+	</div>
+
+	<div class="modal fade" id="aboutDialog" tabindex="-1" role="dialog" aria-labelledby="aboutDialogLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="aboutDialogLabel">About LoyaltyCard</h4>
+				</div>
+				<div class="modal-body">
+					<p>The LoyaltyCard generator was created by Travis Illig as a replacement for the now-offline "JustOneClubCard" application.</p>
+					<p>Phone-based loyalty card applications have never worked for me. About half the time, the phone is too reflective or the scanner just can't pick up the data. A card works every time.</p>
+					<p><strong>You can see the source and information about the tools used <a href="https://github.com/tillig/LoyaltyCard" target="_blank">on GitHub</a>.</strong></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.8.1/holder.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/native.history.min.js"></script>
+	<script src="loyaltycard.js"></script>
+</body>
+</html>
