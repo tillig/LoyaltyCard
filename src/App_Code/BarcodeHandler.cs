@@ -6,10 +6,13 @@ using System.Web;
 
 namespace LoyaltyCard.App_Code
 {
+	// We need a handler to proxy images from the barcode service because
+	// the barcode service doesn't have the right CORS headers to allow the
+	// HTML page to add the image to a canvas and export it.
 	public class BarcodeHandler : IHttpHandler
 	{
 		private const string UrlFormat = "http://www.microscan.com/Barcode/idalin.asp?BARCODE={0}&BAR_HEIGHT=1.25&CODE_TYPE={1}&CHECK_CHAR=N&ROTATE=0&ST=Y&IMAGE_TYPE=1&DPI=118";
-		
+
 		public bool IsReusable
 		{
 			get
