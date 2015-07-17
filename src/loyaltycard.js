@@ -3,10 +3,6 @@
 // TODO: Add G+, FB, etc. buttons.
 // TODO: Google ads
 // TODO: Google metrics
-// TODO: Set the download button to disabled by default in the HTML after PDF testing.
-
-// For getting image data into data URL format for PDF:
-// http://stackoverflow.com/questions/934012/get-image-data-in-javascript
 (function($) {
 	"use strict";
 
@@ -176,11 +172,21 @@
 $(function() {
 	"use strict";
 
-	// Card width / height in mm for the PDF.
-	var cardWidth = 50,
+	// 1pt = 0.352777778mm
+	var pointsToMM = 0.352777778,
+		// 1inch = 25.4mm
+		inchesToMM = 25.4,
+
+		// Card measurements in mm for the PDF.
+		cardWidth = 50,
 		cardHeight = 80,
 		cardTop = 75,
-		cardLeft = 35;
+		cardLeft = 35,
+		codesPerCard = 4,
+		cardMargin = 4,
+		codeNameTextSizePoints = 6,
+		codeNameTextSizeMM = pointsToMM * codeNameTextSizePoints,
+		marginBetweenTextAndCode = 1;
 
 	function downloadPdf() {
 		var data = $(".form-container").getBarcodeData();
@@ -188,6 +194,7 @@ $(function() {
 			return;
 		}
 
+		// The document is measured in mm, but font size is pt.
 		var doc = new jsPDF();
 		doc.setFontSize(20);
 		doc.text(35, 50, "LoyaltyCard");
@@ -206,18 +213,38 @@ $(function() {
 		});
 
 		for (var i = 0; i < data.length; i++) {
-			// TODO: Add the descriptive text above the barcode.
-			var url = "BarcodeHandler.ashx?data=" + encodeURIComponent(data[i].data) + "&type=" + encodeURIComponent(data[i].type),
+			var cardFace = Math.floor(i / codesPerCard),
+				xOffset = cardLeft + cardMargin + (cardFace * cardWidth),
+				yOffset = cardTop + cardMargin + ((i % codesPerCard) * calculateItemHeight()),
+				url = "BarcodeHandler.ashx?data=" + encodeURIComponent(data[i].data) + "&type=" + encodeURIComponent(data[i].type),
 				img = new Image();
-			img.onload = addImageAndCallSave(img, doc, callSave);
+
+			doc.setFontSize(codeNameTextSizePoints);
+			doc.text(xOffset, yOffset, data[i].name);
+			img.onload = addImageAndCallSave(img, xOffset, yOffset + marginBetweenTextAndCode, doc, callSave);
 			img.src = url;
 		}
 	}
 
-	function addImageAndCallSave(image, pdf, callSave) {
+	function calculateItemHeight() {
+		// One "item" is descriptive text + barcode + margin
+		return ((cardHeight - cardMargin) / codesPerCard);
+	}
+
+	function calculateItemWidth() {
+		return cardWidth - (2 * cardMargin);
+	}
+
+	function calculateMaxBarcodeHeight() {
+		return calculateItemHeight() - codeNameTextSizeMM - marginBetweenTextAndCode;
+	}
+
+	function addImageAndCallSave(image, x, y, pdf, callSave) {
 		return function() {
 			var canvas = document.createElement("canvas"),
-				ctx = canvas.getContext("2d");
+				ctx = canvas.getContext("2d"),
+				maxHeight = calculateMaxBarcodeHeight(),
+				maxWidth = calculateItemWidth();
 			canvas.width = image.width;
 			canvas.height = image.height;
 			ctx.drawImage(image, 0, 0);
@@ -227,27 +254,22 @@ $(function() {
 			// are 300dpi. The PDF uses mm for units, so we need to convert
 			// from pixels to inches to mm, the scale up/down to fit in the
 			// width of the card and maintain aspect ratio.
-			var width = (image.width / 300) * 25.4,
-				height = (image.height / 300) * 25.4;
+			var width = (image.width / 300) * inchesToMM,
+				height = (image.height / 300) * inchesToMM;
 
-			if(width > 46)
-			{
-				// It's too wide - reduce the width to 46 to fit
-				// in the 50mm wide card template and adjust
-				// height accordingly.
-				height = height * (46/width);
-				width = 46;
+			if (width > maxWidth) {
+				height = height * (maxWidth / width);
+				width = maxWidth;
 			}
 
-			// TODO: Set a max height and scale if needed.
+			if (height > maxHeight) {
+				width = width * (maxHeight / height);
+				height = maxHeight;
+			}
 
-			var xOffset = (50 - width) / 2,
-				yOffset = 5;
-
-			// TODO: Pass in the base X coordinate.
-			// TODO: Pass in the base Y coordinate.
 			// addImage(image, format, x, y, w, h)
-			pdf.addImage(dataURL, 'JPEG', cardLeft + xOffset, cardTop + yOffset, width, height);
+			var centeredX = x + ((calculateItemWidth() - width) / 2);
+			pdf.addImage(dataURL, 'JPEG', centeredX, y, width, height);
 			callSave();
 		};
 	}
