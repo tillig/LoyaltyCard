@@ -1,8 +1,5 @@
 /* jshint multistr: true */
 /* global History, Holder, jsPDF */
-// TODO: Add G+, FB, etc. buttons.
-// TODO: Google ads
-// TODO: Google metrics
 (function($) {
 	"use strict";
 
