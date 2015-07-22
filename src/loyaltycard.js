@@ -197,6 +197,7 @@ $(function() {
 		doc.text(35, 50, "LoyaltyCard");
 		doc.setFontSize(10);
 		doc.text(35, 60, "Cut along the outer line and fold in half to make a two-sided card. Laminate if desired.");
+		doc.text(35, 70, "Card generated at http://app.paraesthesia.com/LoyaltyCard/");
 		doc.setLineWidth(0.1);
 
 		// roundedRect(x, y, w, h, rx, ry, style)
