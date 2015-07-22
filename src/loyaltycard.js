@@ -54,7 +54,7 @@
 			btn.attr("disabled", true);
 		}
 
-		History.pushState(allData, null, "?" + encodeURIComponent(serializeData(allData)));
+		History.pushState(allData, "LoyaltyCard", "?" + encodeURIComponent(serializeData(allData)));
 	}
 
 	function throttledPreviewUpdate(form) {
