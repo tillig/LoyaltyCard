@@ -16,7 +16,7 @@ LoyaltyCard makes use of the following libraries and services:
 - [jsPDF](http://jspdf.com/) for generating the card PDF. ([MIT License](http://opensource.org/licenses/MIT))
 - [Bootstrap](http://getbootstrap.com/) for UI widgetry. ([MIT License](http://opensource.org/licenses/MIT))
 - [Holder.js](http://imsky.github.io/holder/) for little preview placeholders. ([MIT License](http://opensource.org/licenses/MIT))
-- [Microscan's Free Barcode Generator](http://www.microscan.com/en-us/trainingandresources/freebarcodegenerator.aspx) for creating the barcode images. (No specific license posted, but if you like it, buy stuff from these guys.)
+- [TEC-IT Barcode Software](https://barcode.tec-it.com/en) for creating the barcode images.
 
 ## Developing
 

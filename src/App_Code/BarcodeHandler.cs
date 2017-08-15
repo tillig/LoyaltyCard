@@ -11,7 +11,8 @@ namespace LoyaltyCard.App_Code
 	// HTML page to add the image to a canvas and export it.
 	public class BarcodeHandler : IHttpHandler
 	{
-		private const string UrlFormat = "http://www.microscan.com/Barcode/idalin.asp?BARCODE={0}&BAR_HEIGHT=1.25&CODE_TYPE={1}&CHECK_CHAR=N&ROTATE=0&ST=Y&IMAGE_TYPE=1&DPI=118";
+		// JS expects a 300 DPI JPG.
+		private const string UrlFormat = "https://barcode.tec-it.com/barcode.ashx?translate-esc=off&data={0}&code={1}&unit=Fit&dpi=300&imagetype=Jpg&rotation=0&color=000000&bgcolor=FFFFFF&qunit=Mm&quiet=0";
 
 		public bool IsReusable
 		{
@@ -40,10 +41,51 @@ namespace LoyaltyCard.App_Code
 				throw new InvalidOperationException("You must specify the barcode type.");
 			}
 
-			var url = String.Format(CultureInfo.InvariantCulture, UrlFormat, data, type);
+			var url = String.Format(CultureInfo.InvariantCulture, UrlFormat, data, MapBarcodeType(type));
 			var imageData = new WebClient().DownloadData(url);
 			context.Response.ContentType = "image/jpg";
 			context.Response.BinaryWrite(imageData);
+		}
+
+		private static string MapBarcodeType(string selectedType)
+		{
+			// Map the old Microscan barcode types to tec-it barcode types.
+			switch(selectedType) {
+				case "0":
+					return "Code39";
+				case "1":
+					return "Code39FullASCII";
+				case "2":
+					return "Code25IL";
+				case "3":
+					return "Code11";
+				case "5":
+					return "MSI";
+				case "6":
+					return "UPCA";
+				case "9":
+					return "Code93";
+				case "10":
+					return "EAN13";
+				case "11":
+					return "EAN8";
+				case "13":
+					return "Code128";
+				case "14":
+					return "PlanetCode12";
+				case "15":
+					return "PostNet11";
+				case "16":
+					return "EANUCC128";
+				case "17":
+					return "PDF417";
+				case "18":
+					return "DataMatrix";
+				case "19":
+					return "MaxiCode";
+				default:
+					return "Code39";
+			}
 		}
 	}
 }

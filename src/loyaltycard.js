@@ -28,6 +28,46 @@
 		return JSON.stringify(toEncode);
 	}
 
+	function mapBarcodeType(selectedType) {
+		// Map the old Microscan barcode types to tec-it barcode types.
+		switch(selectedType) {
+			case "0":
+				return "Code39";
+			case "1":
+				return "Code39FullASCII";
+			case "2":
+				return "Code25IL";
+			case "3":
+				return "Code11";
+			case "5":
+				return "MSI";
+			case "6":
+				return "UPCA";
+			case "9":
+				return "Code93";
+			case "10":
+				return "EAN13";
+			case "11":
+				return "EAN8";
+			case "13":
+				return "Code128";
+			case "14":
+				return "PlanetCode12";
+			case "15":
+				return "PostNet11";
+			case "16":
+				return "EANUCC128";
+			case "17":
+				return "PDF417";
+			case "18":
+				return "DataMatrix";
+			case "19":
+				return "MaxiCode";
+			default:
+				return "Code39";
+		}
+	}
+
 	function immediatePreviewUpdate(form) {
 		var data = getBarcodeDataFromForm(form),
 			img = form.find(".barcode-preview"),
@@ -37,7 +77,7 @@
 			img.attr("src", "holder.js/140x70?text=Enter Data to Preview");
 			Holder.run();
 		} else {
-			var url = "http://www.microscan.com/Barcode/idalin.asp?BARCODE=" + encodeURIComponent(data.data) + "&BAR_HEIGHT=1.25&CODE_TYPE=" + encodeURIComponent(data.type) + "&CHECK_CHAR=N&ROTATE=0&ST=Y&IMAGE_TYPE=1&DPI=38",
+			var url = "https://barcode.tec-it.com/barcode.ashx?translate-esc=off&data=" + encodeURIComponent(data.data) + "&code=" + encodeURIComponent(mapBarcodeType(data.type)) + "&unit=Fit&dpi=72&imagetype=Png&rotation=0&color=000000&bgcolor=FFFFFF&qunit=Mm&quiet=0",
 				alt = data.data;
 
 			if (data.name) {
@@ -84,11 +124,8 @@
 						<option value=\"1\">Code 39 Extended</option>\
 						<option value=\"2\">Interleaved 2 of 5</option>\
 						<option value=\"3\">Code 11</option>\
-						<option value=\"4\">Codabar</option>\
 						<option value=\"5\">MSI</option>\
 						<option value=\"6\">UPC-A</option>\
-						<option value=\"7\">Industrial 2 of 5</option>\
-						<option value=\"8\">Matrix 2 of 5</option>\
 						<option value=\"9\">Code 93</option>\
 						<option value=\"10\">EAN-13</option>\
 						<option value=\"11\">EAN-8</option>\
