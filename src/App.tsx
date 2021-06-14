@@ -6,6 +6,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 
+// TODO: Switch barcode generation to https://www.npmjs.com/package/jsbarcode
+// TODO: Dynamic form to add up to eight barcodes.
+// TODO: Get PDF rendering using http://mozilla.github.io/pdf.js/
+// TODO: History support if it's not already baked in (so back/forward and bookmark works).
+
 /**
  * Main application component.
  * @return {JSX.Element} Main application container.
