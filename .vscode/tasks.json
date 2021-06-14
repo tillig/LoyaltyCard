@@ -1,0 +1,48 @@
+{
+  "tasks": [
+    {
+      "group": {
+        "isDefault": true,
+        "kind": "build"
+      },
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "problemMatcher": "$tsc-watch",
+      "script": "watch",
+      "type": "npm"
+    },
+    {
+      "isBackground": true,
+      "label": "Start",
+      "options": {
+        "env": {
+          "BROWSER": "none"
+        }
+      },
+      "problemMatcher": {
+        "applyTo": "closedDocuments",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "http://localhost:3000"
+          }
+        },
+        "fileLocation": [
+          "relative",
+          "${cwd}"
+        ],
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "source": "ts"
+      },
+      "script": "start",
+      "type": "npm"
+    }
+  ],
+  "version": "2.0.0"
+}

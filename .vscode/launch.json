@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "Chrome",
+      "preLaunchTask": "Start",
+      "request": "launch",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "type": "chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src"
+    }
+  ],
+  "version": "0.2.0"
+}

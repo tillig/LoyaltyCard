@@ -1,0 +1,39 @@
+; EditorConfig to support per-solution formatting.
+; http://editorconfig.org/
+
+; This is the default for the codeline.
+root = true
+
+;;;;;;;;;; FORMATTING DIRECTIVES
+
+; Default
+[*]
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+; Config - match XML and default nuget.config template
+[*.config]
+indent_size = 2
+
+; JavaScript and JS mixes - match eslint settings; JSON also matches .NET Core templates
+[*.{js,json,ts,tsx,vue}]
+indent_size = 2
+
+; Markdown - match markdownlint settings
+[*.{md,markdown}]
+indent_size = 2
+
+; PowerShell - match defaults for New-ModuleManifest and PSScriptAnalyzer Invoke-Formatter
+[*.{ps1,psd1,psm1}]
+indent_size = 4
+charset = utf-8-bom
+
+; Linux shell - match common examples, require LF to ensure local interpretation works
+[*.sh]
+end_of_line = LF
+indent_size = 2
+
+; YAML - match standard YAML like Kubernetes and Azure DevOps pipelines
+[*.{yaml,yml}]
+indent_size = 2
