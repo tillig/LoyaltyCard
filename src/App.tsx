@@ -6,14 +6,13 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
-import { BarCodeForm } from './BarCodeForm';
 import './App.css';
+import { Card } from './Card';
 
 // TODO: Switch barcode generation to https://www.npmjs.com/package/jsbarcode
-// TODO: Set up BarCodeForm to update history as it's changed.
-// TODO: BarCodeForm doesn't want to be full width. Why not?
+// TODO: Update history as data is changed.
+// TODO: Code forms don't want to be full width. Why not?
 // TODO: Get PDF rendering using http://mozilla.github.io/pdf.js/
-// TODO: History support if it's not already baked in (so back/forward and bookmark works).
 
 /**
  * Main application component.
@@ -26,11 +25,15 @@ export class App extends React.Component {
    * @return {React.ReactNode} The node to render.
    */
   render(): JSX.Element | null {
-    const barCodeForms = [];
+    const cards: Card[] = [];
 
     for (let index = 0; index < 8; index++) {
-      barCodeForms.push(<BarCodeForm key={index} />);
+      const card = {
+        id: index,
+      } as Card;
+      cards.push(card);
     }
+    const labelWidth = 4;
 
     return (
       <div>
@@ -65,7 +68,34 @@ export class App extends React.Component {
             </Row>
             <Row>
               <Form>
-                {barCodeForms}
+                {cards.map((card) => (
+                  <div className="mb-3" key={card.id}>
+                    <Form.Group as={Row}>
+                      <Form.Label column sm={labelWidth} htmlFor={'name-' + card.id}>
+                        Name
+                      </Form.Label>
+                      <Col>
+                        <Form.Control type="text" placeholder="My Loyalty Card" id={'name-' + card.id} />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                      <Form.Label column sm={labelWidth} htmlFor={'type-' + card.id}>
+                        Bar code type
+                      </Form.Label>
+                      <Col>
+                        <Form.Control type="text" placeholder="Put Dropdown Here" id={'type-' + card.id} />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                      <Form.Label column sm={labelWidth} id={'data-' + card.id}>
+                        Number/Data
+                      </Form.Label>
+                      <Col>
+                        <Form.Control type="text" placeholder="ABC-1234" id={'data-' + card.id} />
+                      </Col>
+                    </Form.Group>
+                  </div>
+                ))}
                 <Button variant="primary">
                   Download PDF
                 </Button>

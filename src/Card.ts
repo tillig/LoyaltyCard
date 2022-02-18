@@ -3,6 +3,11 @@
  */
 export interface Card {
   /**
+   * The unique ID for the card, serves as the index for the form displaying the card.
+   */
+  id: number;
+
+  /**
    * The display name / identifier for the card.
    */
   name: string;
