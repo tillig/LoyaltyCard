@@ -1,10 +1,10 @@
 # LoyaltyCard
 
+> :warning: For a long time phone-based loyalty card apps didn't work for me, so I ended up writing this app. Since then the tech has improved and I've sort of let it die. I have a branch at `feature/reactjs` where I started trying to learn React and update it to be more single-page-app, but time, desire, and burnout all collided to mean... I just didn't. I may come back to it if I ever feel like fighting some UI, but hopes are not high.
+
 LoyaltyCard is a web application to generate a combined loyalty/club card.
 
-I loved the (now-offline) "JustOneClubCard" application. I had created a couple of combined cards that I carried with me everywhere.
-
-For a long time phone-based loyalty card apps didn't work for me, so I ended up writing this app. Since then the tech has improved and I've sort of let it die. I have a branch at `feature/reactjs` where I started trying to learn React and update it to be more single-page-app, but time, desire, and burnout all collided to mean... I just didn't. I may come back to it if I ever feel like fighting some UI, but hopes are not high.
+I loved the (now-offline) "JustOneClubCard" application. I had created a couple of combined cards that I carried with me everywhere. When that disappeared, I made this as a way to get a physical combined card.
 
 ## License
 
